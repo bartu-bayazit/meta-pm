@@ -22,7 +22,9 @@ export default function Poster() {
   const [error, setError] = useState(false);
 
   // Replace with your actual PDF URL
-  const pdfUrl = "/path/to/your/metapm-poster.pdf";
+  //const pdfUrl = "/path/to/your/metapm-poster.pdf";
+  const pdfUrl = `${import.meta.env.BASE_URL}poster.pdf`;
+
   
   const handleLoad = () => {
     setLoading(false);
@@ -95,7 +97,7 @@ export default function Poster() {
             margin: '0 auto 2rem auto',
             lineHeight: 1.6
           }}>
-            Explore our comprehensive project poster showcasing the technical architecture, methodology, 
+            Explore our project poster showcasing the technical architecture, methodology, 
             and results of the MetaPM ensemble learning system for algorithmic trading.
           </Typography>
 
@@ -129,7 +131,7 @@ export default function Poster() {
               </IconButton>
             </Tooltip>
             
-            <Tooltip title="Fullscreen view">
+            {/*<Tooltip title="Fullscreen view">
               <IconButton 
                 onClick={handleFullscreen}
                 style={{ 
@@ -141,7 +143,7 @@ export default function Poster() {
               >
                 <FullscreenIcon />
               </IconButton>
-            </Tooltip>
+            </Tooltip>*/}
           </Stack>
         </Box>
       </Paper>
@@ -219,7 +221,7 @@ export default function Poster() {
           boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
           position: 'relative'
         }}>
-          {/*<iframe
+          {<iframe
             src={`${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
             style={{
               width: '100%',
@@ -230,7 +232,7 @@ export default function Poster() {
             title="MetaPM Project Poster"
             onLoad={handleLoad}
             onError={handleError}
-          />*/}
+          />}
           
           {/* Fallback embed for better browser compatibility */}
           <embed
