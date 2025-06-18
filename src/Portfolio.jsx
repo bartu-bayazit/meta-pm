@@ -57,8 +57,8 @@ export default function Portfolio() {
   const [showResults, setShowResults] = useState(false);
   const [summaryOutput, setSummaryOutput] = useState("");
 
-  const [ipAddress, setIpAddress] = useState("");
-  const [ipSaved,setIpSaved] = useState(false);
+  //const [ipAddress, setIpAddress] = useState("");
+  //const [ipSaved,setIpSaved] = useState(false);
 
   const toggleTicker = (symbol) => {
     setSelectedTickers((prev) =>
@@ -73,7 +73,7 @@ export default function Portfolio() {
     setShowResults(false);
 
     try {
-      await fetch(`http://${ipAddress}:8000/train`, {
+      await fetch(`http://localhost:8000/train`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tickers: selectedTickers }),
@@ -86,7 +86,7 @@ export default function Portfolio() {
   };
 
   useEffect(() => {
-    const socket = new WebSocket(`ws://${ipAddress === "" ? "localhost" : ipAddress}:8000/ws`);
+    const socket = new WebSocket(`ws://localhost:8000/ws`);
 
      let progressQueue = [];  // Stores incoming updates
   let displayInterval;     // Timer for UI update pacing
@@ -139,7 +139,7 @@ export default function Portfolio() {
     socket.close();
     clearInterval(displayInterval);
   };
-  }, [ipAddress]);
+  }, []);
 
   return (
     <Container maxWidth="md" style={{ fontFamily: "'Playfair Display', serif", marginTop: "2rem" }}>
@@ -166,12 +166,12 @@ export default function Portfolio() {
         <Button
           variant="contained"
           onClick={handleSubmit}
-          disabled={processing || selectedTickers.length === 0||ipAddress === ""}
+          disabled={processing || selectedTickers.length === 0}
         >
           See Expected Performance
         </Button>
 
-         <Stack direction="row" spacing={2} alignItems="center" mb={3}>
+         {/*<Stack direction="row" spacing={2} alignItems="center" mb={3}>
           <TextField
             label="Server IP Address"
             value={ipAddress}
@@ -180,10 +180,10 @@ export default function Portfolio() {
             placeholder="e.g. 192.168.1.123"
             size="small"
           />
-          {/*<Button variant="outlined" disabled={ipSaved || !ipAddress} onClick={() => setIpSaved(true)}>
+          <Button variant="outlined" disabled={ipSaved || !ipAddress} onClick={() => setIpSaved(true)}>
             Save
-          </Button>*/}
-        </Stack>
+          </Button>
+        </Stack>*/}
 
         {processing && (
           <div style={{ marginTop: "2rem" }}>
@@ -231,7 +231,7 @@ export default function Portfolio() {
             }}
           >
             <img
-              src={`http://${ipAddress}:8000/outputs/${img}`}
+              src={`http://localhost:8000/outputs/${img}`}
               alt={img}
               style={{
                 width: "100%",
