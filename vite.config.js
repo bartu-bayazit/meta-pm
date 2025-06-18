@@ -9,5 +9,8 @@ export default defineConfig({
     watch: {
       usePolling: true
     }
-  }
+  },
+  build: {
+    outDir: "build",           // 👈 override default "dist" to "build"
+  },
 })
